@@ -1,3 +1,6 @@
+# bib penting nanti ojo lali "npm install" sak durunge "npm run dev"
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
@@ -17,4 +20,4 @@ If you are developing a production application, we recommend using TypeScript wi
 
 
 
-# bib penting nanti ojo lali "npm install" sak durunge "npm run dev"
+
