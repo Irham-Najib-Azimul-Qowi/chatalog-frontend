@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tambahkan style global di sini jika perlu */
+body {
+  font-family: 'Poppins', sans-serif; /* Font yang mirip dengan referensi */
+  background-color: #fdfdfd;
+  color: #333;
+}
