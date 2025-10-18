@@ -47,8 +47,12 @@ function Navbar() {
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         {/* Bagian Kiri Navbar */}
         <div className="flex items-center space-x-8">
-          <Link to="/" className="text-2xl font-serif font-bold text-gray-800 hover:text-orange-500 transition-colors">
-            Chatalog
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/image/Logo-Zoeliez-Ilux.png" 
+              alt="Zoeliez Ilux Snack Ponorogo Logo" 
+              className="h-16 w-auto" 
+            />
           </Link>
           <div className="hidden md:flex items-center space-x-6">
             <Link to="/produk" className="text-gray-600 hover:text-orange-500">Produk</Link>
