@@ -43,7 +43,7 @@ function AdminLoginPage() {
         {/* Header Form */}
         <div className="text-center">
           <h1 className="text-3xl font-serif font-bold text-gray-800">
-            Pastela
+            Zoeliez Ilux
           </h1>
           <p className="mt-2 text-sm text-gray-600">Admin Panel</p>
         </div>
