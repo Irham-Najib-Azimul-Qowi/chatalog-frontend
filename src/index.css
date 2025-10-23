@@ -7,4 +7,6 @@ body {
   font-family: 'Poppins', sans-serif; /* Font yang mirip dengan referensi */
   background-color: #fdfdfd;
   color: #333;
+  width: 100vw;
+  overflow-x: hidden;
 }
