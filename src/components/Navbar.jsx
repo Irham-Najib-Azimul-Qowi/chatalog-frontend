@@ -7,35 +7,29 @@ function Navbar() {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
-  const menuRef = useRef(null); // Untuk mendeteksi klik di luar menu
+  const menuRef = useRef(null); 
 
-  // Memperbarui status login setiap kali URL atau path berubah
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('authToken'));
-    setProfileMenuOpen(false); // Otomatis tutup menu profil saat pindah halaman
+    setProfileMenuOpen(false);
   }, [location]);
 
-  // Efek untuk menutup menu dropdown saat pengguna mengklik di luar areanya
   useEffect(() => {
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         setProfileMenuOpen(false);
       }
     }
-    // Tambahkan event listener saat komponen dimuat
     document.addEventListener("mousedown", handleClickOutside);
-    // Hapus event listener saat komponen dibongkar
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [menuRef]);
 
   const handleLogout = async () => {
     try {
-      // Panggil API logout di backend (opsional tapi disarankan)
       await authService.logout();
     } catch (error) {
       console.error("Gagal logout dari server:", error);
     } finally {
-      // Hapus token dari browser, update state, dan arahkan ke halaman utama
       localStorage.removeItem('authToken');
       setIsLoggedIn(false);
       navigate('/');
@@ -44,16 +38,11 @@ function Navbar() {
 
   return (
     <nav className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-      <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        {/* Bagian Kiri Navbar */}
-        <div className="flex items-center space-x-8">
-          <Link to="/" className="flex items-center">
-            <img 
-              src="/image/Logo-Zoeliez-Ilux.png" 
-              alt="Zoeliez Ilux Snack Ponorogo Logo" 
-              className="h-16 w-auto" 
-            />
-          </Link>
+      <div className="container mx-auto px-6 py-4 flex items-center justify-between relative">
+        
+        {/* Bagian Kiri Navbar (Link Navigasi) */}
+        {/* === PERUBAHAN DI SINI: Tambahkan pl-8 === */}
+        <div className="flex-1 flex items-center space-x-8 pl-8"> {/* Tambahkan pl-8 di sini */}
           <div className="hidden md:flex items-center space-x-6">
             <Link to="/produk" className="text-gray-600 hover:text-orange-500">Produk</Link>
             
@@ -70,10 +59,20 @@ function Navbar() {
           </div>
         </div>
 
-        {/* Bagian Kanan Navbar */}
-        <div className="relative"> {/* 'relative' dibutuhkan untuk posisi dropdown */}
+        {/* Bagian Tengah Navbar (Logo) - Akan diposisikan secara absolut di tengah */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <Link to="/" className="flex items-center">
+            <img 
+              src="/image/Logo-Zoeliez-Ilux.png" 
+              alt="Zoeliez Ilux Snack Ponorogo Logo" 
+              className="h-16 w-auto" 
+            />
+          </Link>
+        </div>
+
+        {/* Bagian Kanan Navbar (Tombol Profil/Login) */}
+        <div className="flex-1 flex justify-end relative">
           {isLoggedIn ? (
-            // Ikon Profil yang berfungsi sebagai tombol
             <button 
               onClick={() => setProfileMenuOpen(!isProfileMenuOpen)} 
               className="w-9 h-9 bg-gray-300 rounded-full flex items-center justify-center font-bold text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
@@ -81,7 +80,6 @@ function Navbar() {
               A {/* Inisial Admin */}
             </button>
           ) : (
-            // Kosong untuk pengunjung biasa
             null
           )}
 
