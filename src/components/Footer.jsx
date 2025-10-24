@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="flex flex-col space-y-4">
           <div className="text-3xl font-bold font-['Poppins'] tracking-wider">ZOELIEZ ILUX</div> 
           <p className="text-sm leading-relaxed max-w-sm">
-            Jl. Kaliurang KM 13, Candi Karang, Sardonoarjo, Kec. Ngaglik, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55581
+            6G37+MMH, Unnamed Road, Brahu, Mlilir, Kec. Dolopo, Kabupaten Madiun, Jawa Timur 63174
           </p>
         </div>
 
@@ -31,11 +31,11 @@ const Footer = () => {
           <h3 className="text-lg font-semibold mb-2">Hubungi Kami</h3>
           <p className="text-sm flex items-center space-x-2">
             <PhoneIcon className="h-5 w-5" />
-            <span>+62 812-3456-7890</span>
+            <span>+62 895-2545-6346</span>
           </p>
           <p className="text-sm flex items-center space-x-2">
             <EnvelopeIcon className="h-5 w-5" />
-            <span>info@pastelab.com</span>
+            <span>zoeliezilux@gmail.com</span>
           </p>
           
           <div className="flex space-x-4 mt-4">

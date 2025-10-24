@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import Slider from 'react-slick'; 
@@ -6,9 +6,13 @@ import publicService from '../services/publicService';
 // --- IMPORT IKON ---
 import { FaLeaf, FaHeart, FaShieldAlt } from 'react-icons/fa'; 
 
-
 function HomePage() {
   const [settings, setSettings] = useState({});
+  const [partnersCount, setPartnersCount] = useState(0); 
+  const countRef = useRef(null); 
+  const [hasAnimated, setHasAnimated] = useState(false); 
+
+  const FINAL_PARTNERS_COUNT = 58; 
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -23,7 +27,46 @@ function HomePage() {
     fetchSettings();
   }, []);
 
-  // 1. Ambil data gambar slider dari settings
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            animateNumber(0, FINAL_PARTNERS_COUNT, setPartnersCount, 2000);
+            setHasAnimated(true); 
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.5, 
+      }
+    );
+
+    if (countRef.current) {
+      observer.observe(countRef.current);
+    }
+
+    return () => {
+      if (countRef.current) {
+        observer.unobserve(countRef.current);
+      }
+    };
+  }, [hasAnimated, FINAL_PARTNERS_COUNT]);
+
+  const animateNumber = (start, end, setter, duration) => {
+    let startTime = null;
+    const step = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      setter(Math.floor(progress * (end - start) + start));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  };
+
   const getSliderImages = () => {
     const images = [
       settings.lp_slider_img1, 
@@ -33,28 +76,24 @@ function HomePage() {
       `http://127.0.0.1:8000/storage/${path}`
     );
 
-    // Menggunakan warna solid sebagai placeholder
     if (images.length === 0) {
-      return ['#888888']; // Kode warna solid netral
+      return ['#888888']; 
     }
     return images;
   };
   const sliderImages = getSliderImages();
 
-  // Menentukan apakah sedang dalam mode placeholder (warna solid)
   const isPlaceholderMode = sliderImages.length === 1 && sliderImages[0] === '#888888';
 
-  // 2. Pengaturan Slider
   const sliderSettings = {
-    dots: true,          
-    infinite: true,      
-    speed: 1000,         
+    dots: true,          
+    infinite: true,      
+    speed: 1000,         
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,      
+    autoplay: true,      
     autoplaySpeed: 5000, 
-    fade: true,          
-    // Aktifkan panah bawaan jika BUKAN mode placeholder
+    fade: true,          
     arrows: !isPlaceholderMode, 
   };
 
@@ -123,6 +162,33 @@ function HomePage() {
             </div>
 
           </div>
+        </div>
+      </section>
+
+      {/* --- SEKSI PENGHITUNG MITRA (Disesuaikan lagi untuk layout horizontal) --- */}
+      <section ref={countRef} className="bg-white py-20 text-center">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8 mb-4">
+            
+            {/* Teks Kiri: "Sebanyak" */}
+            <div className="text-gray-600 text-base md:text-lg font-normal text-right"> {/* text-base/lg untuk ukuran, text-right jika ingin sejajar kanan angka */}
+              <p>Sebanyak</p>
+            </div>
+            
+            {/* Angka di Tengah: 58 */}
+            <div className="text-orange-500 text-6xl md:text-8xl font-bold tracking-tight"> {/* Ukuran font lebih besar */}
+              {partnersCount}
+            </div>
+            {/* Teks Kanan: "Menjadi Mitra Kami" */}
+            <div > {/* text-base/lg untuk ukuran, text-left jika ingin sejajar kiri angka */}
+              <p className="text-orange-500 text-base md:text-l font-normal text-left">Mitra</p>
+            </div>
+            {/* Teks Kanan: "Menjadi Mitra Kami" */}
+            <div className="text-gray-600 text-base md:text-lg font-normal text-left"> {/* text-base/lg untuk ukuran, text-left jika ingin sejajar kiri angka */}
+              <p>Bekerja Sama Dengan Kami</p>
+            </div>
+          </div>
+
         </div>
       </section>
 

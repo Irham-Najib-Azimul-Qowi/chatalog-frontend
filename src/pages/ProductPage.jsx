@@ -3,13 +3,12 @@ import toast from 'react-hot-toast';
 import publicService from '../services/publicService';
 import ProductCard from '../components/ProductCard';
 import CheckoutModal from '../components/CheckoutModal';
-import CartSummaryModal from '../components/CartSummaryModal'; // <-- 1. Impor modal baru
+import CartSummaryModal from '../components/CartSummaryModal'; 
 
 function ProductPage() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   
-  // State baru untuk mengontrol dua modal
   const [isSummaryModalOpen, setSummaryModalOpen] = useState(false);
   const [isCheckoutModalOpen, setCheckoutModalOpen] = useState(false);
 
@@ -58,7 +57,6 @@ function ProductPage() {
     });
   };
 
-  // --- INI PERBAIKAN BUG UTAMANYA --- ✅
   const { totalItems, totalPrice } = useMemo(() => {
     return cart.reduce(
       (accumulator, currentItem) => {
@@ -70,7 +68,6 @@ function ProductPage() {
     );
   }, [cart]);
 
-  // Fungsi untuk membuka modal checkout dan menutup modal ringkasan
   const handleProceedToCheckout = () => {
     setSummaryModalOpen(false);
     setCheckoutModalOpen(true);
@@ -98,7 +95,6 @@ function ProductPage() {
 
   return (
     <>
-      {/* 2. Render kedua modal di sini */}
       <CartSummaryModal
         isOpen={isSummaryModalOpen}
         onClose={() => setSummaryModalOpen(false)}
@@ -115,37 +111,43 @@ function ProductPage() {
         totalPrice={totalPrice}
       />
 
-      <div className="container mx-auto px-4 py-12">
-        <div className="text-center mb-10">
-          <h1 className="text-4xl font-bold text-gray-800">Katalog Produk</h1>
-          <p className="text-gray-600 mt-2">Temukan dan pilih produk favorit Anda.</p>
+      <div className="bg-orange-50 py-12 text-black text-center">
+        <div className="container mx-auto px-4 max-w-screen-xl"> {/* Ganti max-w-7xl menjadi max-w-screen-xl */}
+          <h1 className="text-4xl font-bold">Katalog Produk</h1>
+          <p className="mt-2 text-lg">Temukan dan pilih produk favorit Anda.</p>
         </div>
+      </div>
+
+      {/* Ganti max-w-7xl menjadi max-w-screen-xl di container utama produk */}
+      <div className="container mx-auto px-4 py-12 max-w-screen-xl"> {/* Ganti max-w-7xl menjadi max-w-screen-xl */}
         <div className="mb-8">
           <input 
             type="text"
             placeholder="Cari produk..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full max-w-lg mx-auto block px-4 py-2 border rounded-full"
+            className="w-full max-w-lg mx-auto block px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-orange-500"
           />
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
-  {filteredProducts.map((product) => (
-    <ProductCard
-      key={product.id}
-      product={product}
-      cartItem={cart.find((item) => item.id === product.id)}
-      onAddToCart={handleAddToCart}
-      onRemoveFromCart={handleRemoveFromCart}
-    />
-  ))}
-</div>
+        <div className="flex justify-center">
+          {/* Tambahkan w-full di grid untuk memaksa mengisi lebar */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 w-full"> 
+            {filteredProducts.map((product) => (
+              <ProductCard
+                key={product.id}
+                product={product}
+                cartItem={cart.find((item) => item.id === product.id)}
+                onAddToCart={handleAddToCart}
+                onRemoveFromCart={handleRemoveFromCart}
+              />
+            ))}
+          </div>
+        </div>
 
-        {/* 3. Perbarui Keranjang Mengambang */}
         {cart.length > 0 && (
           <div 
-            onClick={() => setSummaryModalOpen(true)} // <-- Buka modal ringkasan saat diklik
+            onClick={() => setSummaryModalOpen(true)}
             className="fixed bottom-4 left-1/2 -translate-x-1/2 w-11/12 md:w-auto bg-orange-500 text-white rounded-lg shadow-lg p-3 flex items-center justify-between z-40 animate-slide-in-up cursor-pointer"
           >
             <div className='flex items-center gap-3'>
@@ -153,7 +155,6 @@ function ProductPage() {
                 {totalItems}
               </div>
               <p> </p>
-              {/* <p className="font-bold">Rp {new Intl.NumberFormat('id-ID').format(totalPrice)}</p> */}
             </div>
             <div className="font-bold pr-2">
               Lihat Pesanan 
