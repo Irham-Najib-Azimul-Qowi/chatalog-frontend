@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import publicService from '../services/publicService';
-// Impor ikon media sosial yang baru
 import { FaMapMarkerAlt, FaEnvelope, FaPhone, FaWhatsapp, FaInstagram, FaFacebook, FaLinkedin, FaTiktok } from 'react-icons/fa'; 
 
 function ContactPage() {
   const [settings, setSettings] = useState({});
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
+
+  const targetWhatsAppNumber = "6289525456346"; // Nomor WhatsApp tujuan
+
+  // Pindahkan definisi whatsappMessage ke sini agar bisa diakses di seluruh komponen
+  // Gunakan template literal yang fleksibel
+  const whatsappMessage = `Halo Zoeliez Ilux Snack Ponorogo!\n\nNama: ${name}\nPesan: ${message}\n\nSaya ingin bertanya lebih lanjut.`;
+
 
   useEffect(() => {
     publicService.getSettings().then(res => setSettings(res.data));
@@ -15,15 +21,16 @@ function ContactPage() {
   const handleWhatsAppSubmit = (e) => {
     e.preventDefault();
     
-    const whatsappMessage = `Halo Zoeliez Ilux Snack Ponorogo!\n\nNama: ${name}\nPesan: ${message}\n\nSaya ingin bertanya lebih lanjut.`;
-    const phoneNumber = settings.contact_phone ? settings.contact_phone.replace(/[\s+-]/g, '') : '';
+    // whatsappMessage sudah didefinisikan di atas, jadi tidak perlu di sini lagi
+    
+    const phoneNumber = targetWhatsAppNumber.replace(/[\s+-]/g, '');
 
     if (phoneNumber) {
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
       window.open(whatsappUrl, '_blank');
     } else {
       alert("Nomor telepon tidak tersedia. Silakan hubungi secara manual.");
-      console.error("Nomor WhatsApp tidak ditemukan di pengaturan.");
+      console.error("Nomor WhatsApp tidak ditemukan.");
     }
 
     setName('');
@@ -47,18 +54,18 @@ function ContactPage() {
               Kami siap membantu Anda sebaik mungkin.
             </p>
 
-            <div className="space-y-4 text-gray-700 text-left mb-10"> {/* Tambahkan mb-10 */}
+            <div className="space-y-4 text-gray-700 text-left mb-10">
               <div className="flex items-start">
                 <FaMapMarkerAlt className="text-orange-500 mt-1 mr-3 flex-shrink-0" size={20} />
-                <span>{settings.contact_address || '6G37+MMH, Unnamed Road, Brahu, Mlilir, Kec. Dolopo, Kabupaten Madiun, Jawa Timur 63174'}</span>
+                <span>6G37+MMH, Unnamed Road, Brahu, Mlilir, Kec. Dolopo, Kabupaten Madiun, Jawa Timur 63174</span>
               </div>
               <div className="flex items-center">
                 <FaPhone className="text-orange-500 mr-3 flex-shrink-0" size={20} />
-                <span>{settings.contact_phone || '+62 895-2545-6346'}</span>
+                <span>{settings.contact_phone || '0895-2545-6346'}</span>
               </div>
               <div className="flex items-center">
                 <FaEnvelope className="text-orange-500 mr-3 flex-shrink-0" size={20} />
-                <span>{settings.contact_email || 'zoeliezilux@gmail.com'}</span>
+                <span>zoeliezilux@gmail.com</span>
               </div>
             </div>
 
@@ -69,8 +76,8 @@ function ContactPage() {
               <a href="#" className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
                 <FaInstagram size={18} />
               </a>
-              {/* WhatsApp */}
-              <a href={`https://wa.me/${settings.contact_phone ? settings.contact_phone.replace(/[\s+-]/g, '') : ''}`} 
+              {/* WhatsApp - Sekarang whatsappMessage sudah bisa diakses di sini */}
+              <a href={`https://wa.me/${targetWhatsAppNumber}?text=${encodeURIComponent(whatsappMessage)}`} 
                  target="_blank" rel="noopener noreferrer" 
                  className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
                 <FaWhatsapp size={18} />
@@ -82,6 +89,10 @@ function ContactPage() {
               {/* Facebook */}
               <a href="#" className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
                 <FaFacebook size={18} />
+              </a>
+              {/* LinkedIn (Contoh) */}
+              <a href="#" className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
+                <FaLinkedin size={18} />
               </a>
             </div>
           </div>
