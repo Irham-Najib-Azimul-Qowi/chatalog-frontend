@@ -73,7 +73,7 @@ function ContactPage() {
             <h3 className="text-xl font-semibold text-gray-800 mb-4">Ikuti Kami</h3>
             <div className="flex space-x-3">
               {/* Instagram */}
-              <a href="#" className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
+              <a href="https://www.instagram.com/sulisilux/" className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
                 <FaInstagram size={18} />
               </a>
               {/* WhatsApp - Sekarang whatsappMessage sudah bisa diakses di sini */}
@@ -83,16 +83,12 @@ function ContactPage() {
                 <FaWhatsapp size={18} />
               </a>
               {/* TikTok */}
-              <a href="#" className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
+              <a href="https://www.tiktok.com/@zoeliezilux?is_from_webapp=1&sender_device=pc" className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
                 <FaTiktok size={18} />
               </a>
               {/* Facebook */}
-              <a href="#" className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
+              <a href="https://web.facebook.com/zoeliez.ilux" className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
                 <FaFacebook size={18} />
-              </a>
-              {/* LinkedIn (Contoh) */}
-              <a href="#" className="bg-orange-500 text-white p-2 rounded-full hover:bg-orange-600 transition duration-300">
-                <FaLinkedin size={18} />
               </a>
             </div>
           </div>

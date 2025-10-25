@@ -40,22 +40,22 @@ const Footer = () => {
           
           <div className="flex space-x-4 mt-4">
             {/* Link menuju profil Instagram */}
-            <a href="https://instagram.com/nama_instagram_anda" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
+            <a href="https://www.instagram.com/sulisilux/" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
               <img src="https://img.icons8.com/ios-filled/24/ffffff/instagram-new.png" alt="Instagram" className="h-6 w-6" />
             </a>
             
             {/* Link menuju WhatsApp (ganti dengan nomor Anda) */}
-            <a href="https://wa.me/6281234567890" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
+            <a href="https://wa.me/6289525456346" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
               <img src="https://img.icons8.com/ios-filled/24/ffffff/whatsapp.png" alt="WhatsApp" className="h-6 w-6" />
             </a>
             
             {/* Link menuju profil TikTok */}
-            <a href="https://tiktok.com/@nama_tiktok_anda" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
+            <a href="https://www.tiktok.com/@zoeliezilux?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
               <img src="https://img.icons8.com/ios-filled/24/ffffff/tiktok.png" alt="TikTok" className="h-6 w-6" />
             </a>
             
             {/* Link menuju Facebook Messenger */}
-            <a href="https://m.me/nama_facebook_anda" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
+            <a href="https://web.facebook.com/zoeliez.ilux" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
               <img src="https://img.icons8.com/ios-filled/24/ffffff/facebook-messenger.png" alt="Messenger" className="h-6 w-6" />
             </a>
           </div>
