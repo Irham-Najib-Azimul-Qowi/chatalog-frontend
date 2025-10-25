@@ -4,22 +4,30 @@ import { FaPlus, FaMinus } from 'react-icons/fa';
 function ProductCard({ product, cartItem, onAddToCart, onRemoveFromCart }) {
   const quantity = cartItem ? cartItem.quantity : 0;
 
-  // --- PERUBAHAN UTAMA DI SINI ---
-  // Karena gambar Anda ada di public/dummy_images/products/
-  // Maka URL-nya cukup BASE_URL_BACKEND + product.image
-  const imageUrl = product.image 
-                     ? `http://127.0.0.1:8000${product.image}` // CUKUP UBAH INI
-                     : 'https://via.placeholder.com/400x400?text=No+Image';
-  // --- AKHIR PERUBAHAN ---
+  // --- LOGIKA URL GAMBAR BARU UNTUK LOKAL IMAGE ---
+  let imageUrl = 'https://via.placeholder.com/400x400?text=No+Image'; // Default fallback
+
+  if (product.image) {
+    // Asumsi: Jika product.image adalah path lokal (tidak dimulai dengan http/https),
+    // maka kita perlu menambahkan base URL backend.
+    // Contoh path lokal: 'dummy_images/products/keripik_singkong.jpg'
+    if (product.image.startsWith('http://') || product.image.startsWith('https://')) {
+      imageUrl = product.image; // Jika product.image sudah URL lengkap (dari admin atau seeder lain)
+    } else {
+      // Ini untuk gambar dari seeder dummy_images/products/
+      imageUrl = `http://127.0.0.1:8000/${product.image}`; 
+    }
+  }
+  // --- AKHIR LOGIKA ---
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col h-full 
-                         transform hover:-translate-y-1 transition-transform duration-300
-                         w-full max-w-xs mx-auto min-w-0">
+                            transform hover:-translate-y-1 transition-transform duration-300
+                            w-full max-w-xs mx-auto min-w-0">
 
         <div className="relative w-full pb-[100%] bg-gray-100 overflow-hidden">
             <img
-                src={imageUrl} // Gunakan imageUrl yang sudah diperbaiki
+                src={imageUrl} // Gunakan imageUrl yang sudah diproses
                 alt={product.name}
                 className="absolute inset-0 w-full h-full object-cover" 
             />

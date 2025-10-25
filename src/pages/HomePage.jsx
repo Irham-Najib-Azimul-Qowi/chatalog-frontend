@@ -150,7 +150,7 @@ function HomePage() {
                     <p className="text-lg md:text-xl animate-fade-in-up text-white">
                         {slide.description || 'Temukan produk terbaik kami di sini.'}
                     </p>
-                    <Link to="/products" className="mt-6 inline-block bg-orange-500 text-white text-lg font-semibold py-3 px-8 rounded-full hover:bg-orange-600 transition duration-300">
+                    <Link to="/produk" className="mt-6 inline-block bg-orange-500 text-white text-lg font-semibold py-3 px-8 rounded-full hover:bg-orange-600 transition duration-300">
                       Lihat Produk
                     </Link>
                 </div>
@@ -229,7 +229,7 @@ function HomePage() {
         <div className="container mx-auto px-6 text-center">
            <h2 className="text-3xl font-bold text-gray-800 mb-4">{settings.lp_cta_title || 'Lihat Apa yang Kami Tawarkan'}</h2>
            <p className="text-gray-600 max-w-2xl mx-auto mb-8">{settings.lp_cta_text || 'Jelajahi katalog lengkap kami.'}</p>
-           <Link to="/products" className="bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-600 transition-transform hover:scale-105">
+           <Link to="/Produk" className="bg-orange-500 text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-orange-600 transition-transform hover:scale-105">
              Lihat Semua Produk
            </Link>
         </div>
