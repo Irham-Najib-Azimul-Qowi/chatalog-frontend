@@ -41,13 +41,16 @@ function Navbar() {
       <div className="container mx-auto px-6 py-4 flex items-center justify-between relative">
         
         {/* Bagian Kiri Navbar (Link Navigasi) */}
-        {/* === PERUBAHAN DI SINI: Tambahkan pl-8 === */}
-        <div className="flex-1 flex items-center space-x-8 pl-8"> {/* Tambahkan pl-8 di sini */}
+        <div className="flex-1 flex items-center space-x-8 pl-8">
           <div className="hidden md:flex items-center space-x-6">
             <Link to="/produk" className="text-gray-600 hover:text-orange-500">Produk</Link>
             
             {isLoggedIn && (
-              <Link to="/admin/dashboard" className="text-gray-600 hover:text-orange-500">Admin</Link>
+              <>
+                <Link to="/admin/dashboard" className="text-gray-600 hover:text-orange-500">Admin</Link>
+                <Link to="/kotak" className="text-gray-600 hover:text-orange-500">Kotak</Link>
+                <Link to="/tentang" className="text-gray-600 hover:text-orange-500">Tentang</Link>
+              </>
             )}
             
             {!isLoggedIn && (
@@ -59,7 +62,7 @@ function Navbar() {
           </div>
         </div>
 
-        {/* Bagian Tengah Navbar (Logo) - Akan diposisikan secara absolut di tengah */}
+        {/* Bagian Tengah Navbar (Logo) */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link to="/" className="flex items-center">
             <img 
