@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     // Background warna oranye
-    <footer className="bg-orange-500 text-white py-12 px-6 lg:px-24">
+    <footer className="bg-orange-500 text-white py-12 px-6 lg:px-24" data-aos="fade-up">
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Kolom 1: Logo dan Alamat */}
         <div className="flex flex-col space-y-4">
-          <div className="text-3xl font-bold font-['Poppins'] tracking-wider">ZOELIEZ ILUX</div> 
+          <div className="text-3xl font-bold font-['Poppins'] tracking-wider">ZOELIEZ ILUX</div>
           <p className="text-sm leading-relaxed max-w-sm">
             6G37+MMH, Unnamed Road, Brahu, Mlilir, Kec. Dolopo, Kabupaten Madiun, Jawa Timur 63174
           </p>
@@ -37,23 +37,23 @@ const Footer = () => {
             <EnvelopeIcon className="h-5 w-5" />
             <span>zoeliezilux@gmail.com</span>
           </p>
-          
+
           <div className="flex space-x-4 mt-4">
             {/* Link menuju profil Instagram */}
             <a href="https://www.instagram.com/sulisilux/" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
               <img src="https://img.icons8.com/ios-filled/24/ffffff/instagram-new.png" alt="Instagram" className="h-6 w-6" />
             </a>
-            
+
             {/* Link menuju WhatsApp (ganti dengan nomor Anda) */}
             <a href="https://wa.me/6289525456346" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
               <img src="https://img.icons8.com/ios-filled/24/ffffff/whatsapp.png" alt="WhatsApp" className="h-6 w-6" />
             </a>
-            
+
             {/* Link menuju profil TikTok */}
             <a href="https://www.tiktok.com/@zoeliezilux?is_from_webapp=1&sender_device=pc" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
               <img src="https://img.icons8.com/ios-filled/24/ffffff/tiktok.png" alt="TikTok" className="h-6 w-6" />
             </a>
-            
+
             {/* Link menuju Facebook Messenger */}
             <a href="https://web.facebook.com/zoeliez.ilux" target="_blank" rel="noopener noreferrer" className="hover:text-teal-300 transition-colors duration-200">
               <img src="https://img.icons8.com/ios-filled/24/ffffff/facebook-messenger.png" alt="Messenger" className="h-6 w-6" />

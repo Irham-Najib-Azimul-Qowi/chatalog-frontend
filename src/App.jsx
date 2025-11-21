@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import AOS from 'aos'; // <<<< IMPORT AOS
-import 'aos/dist/aos.css'; // <<<< IMPORT CSS AOS
-import "slick-carousel/slick/slick.css"; 
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 // Impor komponen
@@ -18,6 +18,7 @@ import AdminProfilePage from './pages/AdminProfilePage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop'; // Import ScrollToTop
 
 function App() {
   const [showBackToTopButton, setShowBackToTopButton] = useState(false);
@@ -49,9 +50,10 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop /> {/* Tambahkan ScrollToTop di sini */}
       <Toaster position="top-center" reverseOrder={false} />
 
-      <div className="flex flex-col min-h-screen"> 
+      <div className="flex flex-col min-h-screen">
         <Navbar />
 
         <main className="flex-grow">
@@ -59,17 +61,17 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/produk" element={<ProductPage />} />
             <Route path="/admin" element={<AdminLoginPage />} />
-            <Route 
-              path="/admin/dashboard" 
+            <Route
+              path="/admin/dashboard"
               element={
                 <ProtectedRoute>
                   <AdminDashboardPage />
                 </ProtectedRoute>
-              } 
+              }
             />
-            <Route 
-              path="/admin/profile" 
-              element={<ProtectedRoute><AdminProfilePage /></ProtectedRoute>} 
+            <Route
+              path="/admin/profile"
+              element={<ProtectedRoute><AdminProfilePage /></ProtectedRoute>}
             />
             <Route path="/tentang" element={<AboutPage />} />
             <Route path="/kontak" element={<ContactPage />} />
@@ -78,10 +80,10 @@ function App() {
         </main>
 
         <Footer />
-        
+
         {showBackToTopButton && (
-          <button 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             className="fixed bottom-4 right-4 bg-white text-orange-500 p-3 rounded-full shadow-lg hover:bg-orange-200 transition-colors duration-200 z-50"
             aria-label="Back to top"
           >
