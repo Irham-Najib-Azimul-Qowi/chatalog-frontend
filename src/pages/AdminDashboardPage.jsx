@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import adminService from '../services/adminService';
 import ProductModal from '../components/ProductModal';
 // --- IMPORT ICON BARU ---
-import { HiCube, HiCog } from 'react-icons/hi';
+import { HiCube, HiCog, HiHome, HiInformationCircle, HiPhone } from 'react-icons/hi';
 
 // --- Komponen Pembantu untuk Upload Gambar Slider (Tidak Berubah) ---
 function ImageUploadSlot({ settingKey, settings, onImageChange, imagePreviews, label }) {
@@ -243,6 +243,35 @@ function AdminDashboardPage() {
                                     <HiCog className="h-5 w-5" />
                                     <span>Pengaturan Konten</span>
                                 </button>
+
+                                {/* Divider */}
+                                <hr className="my-2 border-gray-200" />
+
+                                {/* Preview Halaman Section */}
+                                <div className="pt-2">
+                                    <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide px-2 mb-2">Preview Halaman</p>
+                                    <Link
+                                        to="/"
+                                        className="flex items-center space-x-3 w-full px-4 py-3 rounded-md font-medium text-sm transition-all duration-150 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                                    >
+                                        <HiHome className="h-5 w-5" />
+                                        <span>Homepage</span>
+                                    </Link>
+                                    <Link
+                                        to="/tentang"
+                                        className="flex items-center space-x-3 w-full px-4 py-3 rounded-md font-medium text-sm transition-all duration-150 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                                    >
+                                        <HiInformationCircle className="h-5 w-5" />
+                                        <span>Tentang Kami</span>
+                                    </Link>
+                                    <Link
+                                        to="/kontak"
+                                        className="flex items-center space-x-3 w-full px-4 py-3 rounded-md font-medium text-sm transition-all duration-150 text-gray-600 hover:bg-gray-200 hover:text-gray-900"
+                                    >
+                                        <HiPhone className="h-5 w-5" />
+                                        <span>Kontak</span>
+                                    </Link>
+                                </div>
                             </nav>
                         </aside>
 
