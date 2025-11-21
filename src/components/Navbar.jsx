@@ -7,7 +7,7 @@ function Navbar() {
   const location = useLocation();
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('authToken'));
   const [isProfileMenuOpen, setProfileMenuOpen] = useState(false);
-  const menuRef = useRef(null); 
+  const menuRef = useRef(null);
 
   useEffect(() => {
     setIsLoggedIn(!!localStorage.getItem('authToken'));
@@ -39,20 +39,20 @@ function Navbar() {
   return (
     <nav className="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between relative">
-        
+
         {/* Bagian Kiri Navbar (Link Navigasi) */}
         <div className="flex-1 flex items-center space-x-8 pl-8">
           <div className="hidden md:flex items-center space-x-6">
             <Link to="/produk" className="text-gray-600 hover:text-orange-500">Produk</Link>
-            
+
             {isLoggedIn && (
               <>
                 <Link to="/admin/dashboard" className="text-gray-600 hover:text-orange-500">Admin</Link>
-                <Link to="/kotak" className="text-gray-600 hover:text-orange-500">Kotak</Link>
+                <Link to="/kontak" className="text-gray-600 hover:text-orange-500">Kontak</Link>
                 <Link to="/tentang" className="text-gray-600 hover:text-orange-500">Tentang</Link>
               </>
             )}
-            
+
             {!isLoggedIn && (
               <>
                 <Link to="/tentang" className="text-gray-600 hover:text-orange-500">Tentang Kami</Link>
@@ -65,10 +65,10 @@ function Navbar() {
         {/* Bagian Tengah Navbar (Logo) */}
         <div className="absolute left-1/2 -translate-x-1/2">
           <Link to="/" className="flex items-center">
-            <img 
-              src="/image/Logo-Zoeliez-Ilux.png" 
-              alt="Zoeliez Ilux Snack Ponorogo Logo" 
-              className="h-16 w-auto" 
+            <img
+              src="/image/Logo-Zoeliez-Ilux.png"
+              alt="Zoeliez Ilux Snack Ponorogo Logo"
+              className="h-16 w-auto"
             />
           </Link>
         </div>
@@ -76,8 +76,8 @@ function Navbar() {
         {/* Bagian Kanan Navbar (Tombol Profil/Login) */}
         <div className="flex-1 flex justify-end relative">
           {isLoggedIn ? (
-            <button 
-              onClick={() => setProfileMenuOpen(!isProfileMenuOpen)} 
+            <button
+              onClick={() => setProfileMenuOpen(!isProfileMenuOpen)}
               className="w-9 h-9 bg-gray-300 rounded-full flex items-center justify-center font-bold text-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
             >
               A {/* Inisial Admin */}
@@ -93,8 +93,8 @@ function Navbar() {
                 <Link to="/admin/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-orange-50">
                   Pengaturan Profil
                 </Link>
-                <button 
-                  onClick={handleLogout} 
+                <button
+                  onClick={handleLogout}
                   className="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-red-50"
                 >
                   Logout
