@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import Slider from 'react-slick';
 import publicService from '../services/publicService';
 import axios from 'axios';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 // --- IMPORT IKON ---
 import { FaLeaf, FaHeart, FaShieldAlt } from 'react-icons/fa';
@@ -13,6 +14,7 @@ function HomePage() {
   const [partnersCount, setPartnersCount] = useState(0);
   const [hasAnimated, setHasAnimated] = useState(false);
   const [homepageSlides, setHomepageSlides] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const FINAL_PARTNERS_COUNT = 58;
   const API_BASE_URL = 'http://127.0.0.1:8000';
@@ -25,6 +27,8 @@ function HomePage() {
       } catch (error) {
         console.error("Gagal memuat data settings:", error);
         toast.error("Tidak dapat memuat pengaturan dari server.");
+      } finally {
+        setLoading(false);
       }
     };
     fetchSettings();
@@ -119,6 +123,10 @@ function HomePage() {
   const finalSlides = slidesFromSettings.length > 0 ? slidesFromSettings : [
     { id: 1, image_url: null, title: 'Selamat Datang', description: 'Silakan upload gambar di admin.' }
   ];
+
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <div className="min-h-screen">

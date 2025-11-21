@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Slider from 'react-slick';
 import publicService from '../services/publicService';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 function AboutPage() {
   const [settings, setSettings] = useState({});
@@ -103,7 +104,7 @@ function AboutPage() {
   ];
 
   if (loading) {
-    return <div className="h-screen bg-gray-200 flex items-center justify-center text-gray-600">Memuat Slides...</div>;
+    return <LoadingSpinner />;
   }
 
   if (error) {

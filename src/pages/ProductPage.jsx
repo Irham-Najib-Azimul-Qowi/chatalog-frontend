@@ -3,16 +3,18 @@ import toast from 'react-hot-toast';
 import publicService from '../services/publicService';
 import ProductCard from '../components/ProductCard';
 import CheckoutModal from '../components/CheckoutModal';
-import CartSummaryModal from '../components/CartSummaryModal'; 
+import CartSummaryModal from '../components/CartSummaryModal';
+import LoadingSpinner from '../components/LoadingSpinner';
 
 function ProductPage() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
-  
+
   const [isSummaryModalOpen, setSummaryModalOpen] = useState(false);
   const [isCheckoutModalOpen, setCheckoutModalOpen] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -22,13 +24,15 @@ function ProductPage() {
       } catch (error) {
         console.error("Gagal memuat produk:", error);
         toast.error("Tidak dapat memuat daftar produk.");
+      } finally {
+        setLoading(false);
       }
     };
     fetchProducts();
   }, []);
 
   const filteredProducts = useMemo(() => {
-    return products.filter(product => 
+    return products.filter(product =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
   }, [products, searchTerm]);
@@ -93,6 +97,10 @@ function ProductPage() {
     }
   };
 
+  if (loading) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <>
       <CartSummaryModal
@@ -114,13 +122,13 @@ function ProductPage() {
       {/* Header Section dengan animasi */}
       <div className="bg-orange-50 py-12 text-black text-center">
         <div className="container mx-auto px-4 max-w-screen-xl">
-          <h1 
+          <h1
             className="text-4xl font-bold"
             data-aos="fade-down"
           >
             Katalog Produk
           </h1>
-          <p 
+          <p
             className="mt-2 text-lg"
             data-aos="fade-up"
             data-aos-delay="100"
@@ -132,12 +140,12 @@ function ProductPage() {
 
       <div className="container mx-auto px-4 py-12 max-w-screen-xl">
         {/* Search Bar dengan animasi */}
-        <div 
+        <div
           className="mb-8"
           data-aos="fade-down"
           data-aos-delay="200"
         >
-          <input 
+          <input
             type="text"
             placeholder="Cari produk..."
             value={searchTerm}
@@ -148,7 +156,7 @@ function ProductPage() {
 
         {/* Grid Produk dengan stagger animation */}
         <div className="flex justify-center">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 w-full"> 
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 w-full">
             {filteredProducts.map((product, index) => (
               <div
                 key={product.id}
@@ -169,7 +177,7 @@ function ProductPage() {
 
         {/* Cart Button - animasi slide up saat ada item */}
         {cart.length > 0 && (
-          <div 
+          <div
             onClick={() => setSummaryModalOpen(true)}
             className="fixed bottom-4 left-1/2 -translate-x-1/2 w-11/12 md:w-auto bg-orange-500 text-white rounded-lg shadow-lg p-3 flex items-center justify-between z-40 animate-slide-in-up cursor-pointer"
             data-aos="fade-up"
@@ -182,7 +190,7 @@ function ProductPage() {
               <p> </p>
             </div>
             <div className="font-bold pr-2">
-              Lihat Pesanan 
+              Lihat Pesanan
             </div>
           </div>
         )}

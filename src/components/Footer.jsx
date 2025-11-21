@@ -1,11 +1,17 @@
 import React from 'react';
 import { MapPinIcon, EnvelopeIcon, PhoneIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Footer = () => {
+  const location = useLocation();
+
   return (
     // Background warna oranye
-    <footer className="bg-orange-500 text-white py-12 px-6 lg:px-24" data-aos="fade-up">
+    <footer
+      key={location.pathname}
+      className="bg-orange-500 text-white py-12 px-6 lg:px-24"
+      data-aos="fade-up"
+    >
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Kolom 1: Logo dan Alamat */}
         <div className="flex flex-col space-y-4">
