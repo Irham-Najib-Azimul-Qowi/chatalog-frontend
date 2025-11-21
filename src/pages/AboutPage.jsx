@@ -70,7 +70,6 @@ function AboutPage() {
     }
   ];
 
-  // Perbarui kondisi loading/error untuk menggunakan h-screen juga
   if (loading) {
     return <div className="h-screen bg-gray-200 flex items-center justify-center text-gray-600">Memuat Slides...</div>;
   }
@@ -86,16 +85,13 @@ function AboutPage() {
   return (
     <div className="bg-white"> 
       
-      {/* ======================================= */}
-      {/* === HERO SLIDER DARI KODE HOMEPAGE, DIMODIFIKASI UNTUK ABOUT US === */}
-      {/* ======================================= */}
-      <header className="relative w-full h-screen overflow-hidden"> {/* <<<< KEMBALIKAN KE h-screen */}
+      {/* HERO SLIDER - Tanpa animasi AOS karena sudah ada animasi slider */}
+      <header className="relative w-full h-screen overflow-hidden">
         <Slider {...sliderSettings} className="w-full h-full">
           {homepageSlides.map((slide) => (
             <div key={slide.id} className="w-full h-full">
               <div 
-                // Di sini juga harus h-screen agar gambar mengisi penuh
-                className="w-full h-screen flex flex-col justify-center items-center text-white p-6 relative" // <<<< KEMBALIKAN KE h-screen
+                className="w-full h-screen flex flex-col justify-center items-center text-white p-6 relative"
                 style={{ 
                     backgroundImage: `url(${API_BASE_URL}${slide.image_url})`,
                     backgroundSize: 'cover',
@@ -103,13 +99,9 @@ function AboutPage() {
                     backgroundRepeat: 'no-repeat', 
                 }}
               >
-                {/* Lapisan Hitam Transparan - Ini yang membuat gambar sedikit gelap agar teks terbaca */}
                 <div className="absolute inset-0 bg-black opacity-40"></div>
                 
-                {/* Kontainer Teks - TANPA background kotak terpisah, hanya teks langsung di atas gambar */}
-                <div 
-                    className="relative z-10 transition-opacity duration-500 max-w-lg text-center" 
-                >
+                <div className="relative z-10 transition-opacity duration-500 max-w-lg text-center">
                     <h1 className="text-5xl md:text-6xl font-serif font-bold tracking-tight leading-tight mb-2 animate-fade-in-down text-white">
                         Tentang Zoeliez Ilux 
                     </h1>
@@ -122,11 +114,8 @@ function AboutPage() {
           ))}
         </Slider>
       </header>
-      {/* ======================================= */}
-      {/* === AKHIR HERO SLIDER === */}
 
-
-      {/* Konten cerita yang sudah ada */}
+      {/* KONTEN CERITA dengan ANIMASI */}
       <div className="py-12 lg:py-20"> 
         <div className="container mx-auto px-6 max-w-6xl">
           {storySections.map((section, index) => (
@@ -134,14 +123,26 @@ function AboutPage() {
               key={section.id} 
               className={`flex flex-col ${section.layout === 'image-left' ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-8 lg:gap-12 mb-16 lg:mb-24`}
             >
-              <div className="w-full lg:w-1/2 rounded-lg shadow-lg overflow-hidden flex-shrink-0">
+              {/* Gambar dengan animasi slide dari samping */}
+              <div 
+                className="w-full lg:w-1/2 rounded-lg shadow-lg overflow-hidden flex-shrink-0"
+                data-aos={section.layout === 'image-left' ? 'fade-right' : 'fade-left'}
+                data-aos-duration="1000"
+              >
                 <img 
                   src={`${BASE_IMAGE_URL}${section.image}`} 
                   alt={section.imageAlt} 
                   className="w-full h-auto object-cover" 
                 />
               </div>
-              <div className="w-full lg:w-1/2 text-center lg:text-left">
+              
+              {/* Teks dengan animasi fade dari arah berlawanan */}
+              <div 
+                className="w-full lg:w-1/2 text-center lg:text-left"
+                data-aos={section.layout === 'image-left' ? 'fade-left' : 'fade-right'}
+                data-aos-duration="1000"
+                data-aos-delay="200"
+              >
                 <h2 className="text-3xl font-semibold text-gray-800 mb-4">
                   {section.title}
                 </h2>

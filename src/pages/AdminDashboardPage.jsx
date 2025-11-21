@@ -8,7 +8,7 @@ import { HiCube, HiCog } from 'react-icons/hi';
 
 // --- Komponen Pembantu untuk Upload Gambar Slider (Tidak Berubah) ---
 function ImageUploadSlot({ settingKey, settings, onImageChange, imagePreviews, label }) {
-    const previewUrl = imagePreviews[settingKey] || (settings[settingKey] ? 
+    const previewUrl = imagePreviews[settingKey] || (settings[settingKey] ?
         `http://127.0.0.1:8000/storage/${settings[settingKey]}` :
         'https://via.placeholder.com/400x200?text=Pilih+Gambar');
 
@@ -21,12 +21,12 @@ function ImageUploadSlot({ settingKey, settings, onImageChange, imagePreviews, l
                     alt={`Preview ${label}`}
                     className="w-full h-48 object-cover rounded-md mb-4"
                 />
-                <input 
-                    type="file" 
-                    id={`imageUpload-${settingKey}`} 
+                <input
+                    type="file"
+                    id={`imageUpload-${settingKey}`}
                     className="hidden"
                     onChange={(e) => onImageChange(e, settingKey)}
-                    accept="image/*" 
+                    accept="image/*"
                 />
                 <label htmlFor={`imageUpload-${settingKey}`} className="cursor-pointer bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50">
                     Ganti Gambar
@@ -44,12 +44,12 @@ function AdminDashboardPage() {
     const navigate = useNavigate();
 
     // State untuk MULTIPLE SLIDER IMAGES
-    const [imageFiles, setImageFiles] = useState({}); 
+    const [imageFiles, setImageFiles] = useState({});
     const [imagePreviews, setImagePreviews] = useState({});
-    
+
     // State untuk modal produk
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [editingProduct, setEditingProduct] = useState(null); 
+    const [editingProduct, setEditingProduct] = useState(null);
 
     // --- STATE NAVIGASI DIUBAH (Default ke 'products') ---
     const [activeView, setActiveView] = useState('products'); // 'products' or 'content'
@@ -75,7 +75,7 @@ function AdminDashboardPage() {
         };
         fetchData();
     }, [navigate]);
-    
+
     // --- SEMUA FUNGSI HANDLER (SETTINGS & PRODUK) DI BAWAH INI TIDAK BERUBAH ---
 
     // Menangani perubahan input teks di form pengaturan
@@ -127,7 +127,7 @@ function AdminDashboardPage() {
             if (imageFiles[key]) {
                 const formData = new FormData();
                 formData.append('image', imageFiles[key]);
-                formData.append('image_key', key); 
+                formData.append('image_key', key);
                 promiseArr.push(adminService.uploadLandingImage(formData));
             }
         }
@@ -178,7 +178,7 @@ function AdminDashboardPage() {
             );
         }
     };
-    
+
     const handleDeleteProduct = (productId) => {
         if (window.confirm('Anda yakin ingin menghapus produk ini secara permanen?')) {
             toast.promise(
@@ -204,20 +204,20 @@ function AdminDashboardPage() {
 
     return (
         <>
-            <ProductModal 
+            <ProductModal
                 isOpen={isModalOpen}
                 onClose={handleCloseModal}
                 onSave={handleSaveProduct}
                 product={editingProduct}
             />
-            
+
             {/* Latar belakang halaman dashboard */}
             <div className="bg-gray-100 min-h-screen">
-                
+
                 {/* Container utama (Navbar utama Anda akan ada di atas div ini) */}
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                    
-                    
+
+
 
                     {/* --- LAYOUT BARU: SIDEBAR + KONTEN --- */}
                     <div className="flex flex-col md:flex-row md:space-x-8">
@@ -225,16 +225,19 @@ function AdminDashboardPage() {
                         {/* --- NAVIGASI SIDEBAR --- */}
                         <aside className="w-full md:w-60 flex-shrink-0 mb-6 md:mb-0">
                             {/* Dibuat sticky agar tetap terlihat saat scroll. Sesuaikan 'top-24' jika perlu. */}
-                            <nav className="flex flex-col space-y-2 bg-white p-4 rounded-lg shadow-md sticky top-24">
-                                <button 
-                                    onClick={() => setActiveView('products')} 
+                            <nav
+                                className="flex flex-col space-y-2 bg-white p-4 rounded-lg shadow-md sticky top-24"
+                                data-aos="fade-right"
+                            >
+                                <button
+                                    onClick={() => setActiveView('products')}
                                     className={getSidebarLinkClassName('products')}
                                 >
                                     <HiCube className="h-5 w-5" />
                                     <span>Manajemen Produk</span>
                                 </button>
-                                <button 
-                                    onClick={() => setActiveView('content')} 
+                                <button
+                                    onClick={() => setActiveView('content')}
                                     className={getSidebarLinkClassName('content')}
                                 >
                                     <HiCog className="h-5 w-5" />
@@ -248,8 +251,8 @@ function AdminDashboardPage() {
 
                             {/* === HALAMAN PENGATURAN KONTEN === */}
                             {activeView === 'content' && (
-                                <div className="animate-fadeIn space-y-8">
-                                    
+                                <div className="animate-fadeIn space-y-8" data-aos="fade-left">
+
                                     {/* Card 1: Pengaturan Halaman Utama */}
                                     <section className="bg-white p-6 rounded-lg shadow-md">
                                         <h2 className="text-xl font-semibold text-gray-700 mb-6 border-b pb-3">Pengaturan Halaman Utama</h2>
@@ -258,7 +261,7 @@ function AdminDashboardPage() {
                                             <div className="space-y-4">
                                                 <div>
                                                     <label className="block text-sm font-medium text-gray-700">Headline</label>
-                                                    <input type="text" name="landing_page_headline" value={settings.landing_page_headline || ''} onChange={handleSettingsChange} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                    <input type="text" name="landing_page_headline" value={settings.landing_page_headline || ''} onChange={handleSettingsChange} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-medium text-gray-700">Tagline</label>
@@ -270,7 +273,7 @@ function AdminDashboardPage() {
                                                 </div>
                                                 <div>
                                                     <label className="block text-sm font-medium text-gray-700">Nomor WhatsApp (cth: 6281234...)</label>
-                                                    <input type="text" name="seller_whatsapp" value={settings.seller_whatsapp || ''} onChange={handleSettingsChange} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                    <input type="text" name="seller_whatsapp" value={settings.seller_whatsapp || ''} onChange={handleSettingsChange} className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                                 </div>
                                             </div>
                                             {/* Kolom Kanan: Upload Gambar SLIDER */}
@@ -282,41 +285,41 @@ function AdminDashboardPage() {
                                             </div>
                                         </div>
                                         {/* Seksi "Kenapa Memilih Kami?" */}
-                                        <hr className="my-8"/>
+                                        <hr className="my-8" />
                                         <h3 className="text-lg font-semibold text-gray-600 mb-4">Seksi "Kenapa Memilih Kami?"</h3>
                                         <div className="space-y-4">
                                             <div>
                                                 <label className="block text-sm font-medium">Judul Seksi</label>
-                                                <input type="text" name="lp_section_title" value={settings.lp_section_title || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                <input type="text" name="lp_section_title" value={settings.lp_section_title || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                             </div>
                                             {[1, 2, 3].map(i => (
                                                 <div key={i} className="grid grid-cols-1 md:grid-cols-2 gap-4 p-3 border rounded-md bg-gray-50">
                                                     <div>
                                                         <label className="block text-xs font-medium text-gray-600">Judul Poin {i}</label>
-                                                        <input type="text" name={`lp_item${i}_title`} value={settings[`lp_item${i}_title`] || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                        <input type="text" name={`lp_item${i}_title`} value={settings[`lp_item${i}_title`] || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                                     </div>
                                                     <div>
                                                         <label className="block text-xs font-medium text-gray-600">Teks Poin {i}</label>
-                                                        <input type="text" name={`lp_item${i}_text`} value={settings[`lp_item${i}_text`] || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                        <input type="text" name={`lp_item${i}_text`} value={settings[`lp_item${i}_text`] || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                                     </div>
                                                 </div>
                                             ))}
                                         </div>
                                         {/* Seksi "Call to Action" */}
-                                        <hr className="my-8"/>
+                                        <hr className="my-8" />
                                         <h3 className="text-lg font-semibold text-gray-600 mb-4">Seksi "Call to Action"</h3>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                             <div>
                                                 <label className="block text-sm font-medium">Judul CTA</label>
-                                                <input type="text" name="lp_cta_title" value={settings.lp_cta_title || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                <input type="text" name="lp_cta_title" value={settings.lp_cta_title || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium">Teks CTA</label>
-                                                <input type="text" name="lp_cta_text" value={settings.lp_cta_text || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                <input type="text" name="lp_cta_text" value={settings.lp_cta_text || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                             </div>
                                         </div>
                                     </section>
-                                    
+
                                     {/* Card 2: Pengaturan Halaman Lain */}
                                     <section className="bg-white p-6 rounded-lg shadow-md">
                                         <h2 className="text-xl font-semibold text-gray-700 mb-6 border-b pb-3">Pengaturan Halaman Lain</h2>
@@ -327,7 +330,7 @@ function AdminDashboardPage() {
                                                 <div className="space-y-4">
                                                     <div>
                                                         <label className="block text-sm font-medium">Judul</label>
-                                                        <input type="text" name="about_title" value={settings.about_title || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                        <input type="text" name="about_title" value={settings.about_title || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                                     </div>
                                                     <div>
                                                         <label className="block text-sm font-medium">Konten Paragraf</label>
@@ -341,23 +344,23 @@ function AdminDashboardPage() {
                                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                                     <div>
                                                         <label className="block text-sm font-medium">Judul</label>
-                                                        <input type="text" name="contact_title" value={settings.contact_title || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                        <input type="text" name="contact_title" value={settings.contact_title || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                                     </div>
                                                     <div>
                                                         <label className="block text-sm font-medium">Tagline</label>
-                                                        <input type="text" name="contact_tagline" value={settings.contact_tagline || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                        <input type="text" name="contact_tagline" value={settings.contact_tagline || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                                     </div>
                                                     <div className="md:col-span-2">
                                                         <label className="block text-sm font-medium">Alamat</label>
-                                                        <input type="text" name="contact_address" value={settings.contact_address || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                        <input type="text" name="contact_address" value={settings.contact_address || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                                     </div>
                                                     <div>
                                                         <label className="block text-sm font-medium">Email</label>
-                                                        <input type="email" name="contact_email" value={settings.contact_email || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                        <input type="email" name="contact_email" value={settings.contact_email || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                                     </div>
                                                     <div>
                                                         <label className="block text-sm font-medium">Telepon</label>
-                                                        <input type="tel" name="contact_phone" value={settings.contact_phone || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500"/>
+                                                        <input type="tel" name="contact_phone" value={settings.contact_phone || ''} onChange={handleSettingsChange} className="mt-1 w-full border-gray-300 rounded-md shadow-sm focus:border-orange-500 focus:ring-orange-500" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -375,7 +378,10 @@ function AdminDashboardPage() {
 
                             {/* === HALAMAN MANAJEMEN PRODUK === */}
                             {activeView === 'products' && (
-                                <section className="animate-fadeIn bg-white shadow-md rounded-lg overflow-hidden">
+                                <section
+                                    className="animate-fadeIn bg-white shadow-md rounded-lg overflow-hidden"
+                                    data-aos="fade-left"
+                                >
                                     <div className="flex justify-between items-center p-6 border-b border-gray-200">
                                         <h2 className="text-xl font-semibold text-gray-700">Manajemen Produk</h2>
                                         <button onClick={handleOpenAddModal} className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-md shadow-sm transition-colors duration-200">

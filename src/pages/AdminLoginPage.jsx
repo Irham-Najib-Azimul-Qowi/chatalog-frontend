@@ -36,10 +36,13 @@ function AdminLoginPage() {
   return (
     // Latar Belakang Utama
     <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-      
+
       {/* Kartu Form Login */}
-      <div className="w-full max-w-sm p-8 space-y-6 bg-white rounded-xl shadow-lg">
-        
+      <div
+        className="w-full max-w-sm p-8 space-y-6 bg-white rounded-xl shadow-lg"
+        data-aos="fade-up"
+      >
+
         {/* Header Form */}
         <div className="text-center">
           <h1 className="text-3xl font-serif font-bold text-gray-800">
@@ -47,10 +50,10 @@ function AdminLoginPage() {
           </h1>
           <p className="mt-2 text-sm text-gray-600">Admin Panel</p>
         </div>
-        
+
         {/* Form */}
         <form onSubmit={handleLogin} className="space-y-6">
-          
+
           {/* Input Nomor Telepon */}
           <div>
             <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
@@ -89,7 +92,7 @@ function AdminLoginPage() {
               {error}
             </p>
           )}
-          
+
           {/* Tombol Submit */}
           <div>
             <button

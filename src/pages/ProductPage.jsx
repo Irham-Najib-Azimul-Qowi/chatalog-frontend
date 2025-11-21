@@ -111,16 +111,32 @@ function ProductPage() {
         totalPrice={totalPrice}
       />
 
+      {/* Header Section dengan animasi */}
       <div className="bg-orange-50 py-12 text-black text-center">
-        <div className="container mx-auto px-4 max-w-screen-xl"> {/* Ganti max-w-7xl menjadi max-w-screen-xl */}
-          <h1 className="text-4xl font-bold">Katalog Produk</h1>
-          <p className="mt-2 text-lg">Temukan dan pilih produk favorit Anda.</p>
+        <div className="container mx-auto px-4 max-w-screen-xl">
+          <h1 
+            className="text-4xl font-bold"
+            data-aos="fade-down"
+          >
+            Katalog Produk
+          </h1>
+          <p 
+            className="mt-2 text-lg"
+            data-aos="fade-up"
+            data-aos-delay="100"
+          >
+            Temukan dan pilih produk favorit Anda.
+          </p>
         </div>
       </div>
 
-      {/* Ganti max-w-7xl menjadi max-w-screen-xl di container utama produk */}
-      <div className="container mx-auto px-4 py-12 max-w-screen-xl"> {/* Ganti max-w-7xl menjadi max-w-screen-xl */}
-        <div className="mb-8">
+      <div className="container mx-auto px-4 py-12 max-w-screen-xl">
+        {/* Search Bar dengan animasi */}
+        <div 
+          className="mb-8"
+          data-aos="fade-down"
+          data-aos-delay="200"
+        >
           <input 
             type="text"
             placeholder="Cari produk..."
@@ -130,25 +146,34 @@ function ProductPage() {
           />
         </div>
 
+        {/* Grid Produk dengan stagger animation */}
         <div className="flex justify-center">
-          {/* Tambahkan w-full di grid untuk memaksa mengisi lebar */}
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8 w-full"> 
-            {filteredProducts.map((product) => (
-              <ProductCard
+            {filteredProducts.map((product, index) => (
+              <div
                 key={product.id}
-                product={product}
-                cartItem={cart.find((item) => item.id === product.id)}
-                onAddToCart={handleAddToCart}
-                onRemoveFromCart={handleRemoveFromCart}
-              />
+                data-aos="zoom-in"
+                data-aos-delay={index * 50} // Stagger effect: setiap produk muncul dengan delay
+                data-aos-duration="600"
+              >
+                <ProductCard
+                  product={product}
+                  cartItem={cart.find((item) => item.id === product.id)}
+                  onAddToCart={handleAddToCart}
+                  onRemoveFromCart={handleRemoveFromCart}
+                />
+              </div>
             ))}
           </div>
         </div>
 
+        {/* Cart Button - animasi slide up saat ada item */}
         {cart.length > 0 && (
           <div 
             onClick={() => setSummaryModalOpen(true)}
             className="fixed bottom-4 left-1/2 -translate-x-1/2 w-11/12 md:w-auto bg-orange-500 text-white rounded-lg shadow-lg p-3 flex items-center justify-between z-40 animate-slide-in-up cursor-pointer"
+            data-aos="fade-up"
+            data-aos-duration="500"
           >
             <div className='flex items-center gap-3'>
               <div className='bg-white text-orange-500 font-bold rounded-md w-8 h-8 flex items-center justify-center'>
